@@ -27,12 +27,14 @@ class Character(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    delegate_name: Mapped[str] = mapped_column(String(255), default="", server_default="")
+    rank: Mapped[int] = mapped_column(default=1, server_default="1")
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
 
     crisis_notes: Mapped[list[CrisisNote]] = relationship(
-        "CrisisNote", back_populates="character", cascade="all, delete-orphan"
+        "CrisisNote", back_populates="character", passive_deletes="all"
     )
 
 
@@ -73,7 +75,7 @@ class CrisisNote(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     character_id: Mapped[int] = mapped_column(
-        ForeignKey("characters.id", ondelete="CASCADE"), nullable=False
+        ForeignKey("characters.id", ondelete="RESTRICT"), nullable=False
     )
     period_id: Mapped[int] = mapped_column(
         ForeignKey("crisis_periods.id", ondelete="RESTRICT"), nullable=False

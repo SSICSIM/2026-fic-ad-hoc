@@ -2,27 +2,52 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import { BookOpen, Users } from "lucide-react";
 import { CharacterManagerDialog } from "@/components/crisis/CharacterManagerDialog";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [charOpen, setCharOpen] = useState(false);
-
+  if (pathname === "/login") return null;
   return (
     <>
-      <header className="bg-background/95 sticky top-0 z-40 border-b backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
-          <Link href="/" className="text-sm font-semibold tracking-tight">
-            Crisis Tracker
+      <header className="union-header">
+        <div className="union-nav">
+          <Link href="/mechanics" className="union-brand">
+            <BookOpen size={19} strokeWidth={1.6} />
+            <span>
+              Fearmonger <strong>Union</strong>
+            </span>
           </Link>
-          <Button variant="outline" size="sm" onClick={() => setCharOpen(true)}>
-            <Users className="mr-2 h-4 w-4" />
-            Characters
-          </Button>
+          <nav aria-label="Main navigation">
+            {[
+              ["/mechanics", "Register"],
+              ["/crisis", "Crisis tracker"],
+              ["/control-panel", "Control panel"],
+            ].map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                aria-current={pathname === href ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            ))}
+            {pathname === "/crisis" && (
+              <button
+                className="sheet-button"
+                onClick={() => setCharOpen(true)}
+              >
+                <Users size={14} /> Characters
+              </button>
+            )}
+          </nav>
         </div>
       </header>
-      <CharacterManagerDialog open={charOpen} onOpenChange={setCharOpen} />
+      {pathname === "/crisis" && (
+        <CharacterManagerDialog open={charOpen} onOpenChange={setCharOpen} />
+      )}
     </>
   );
 }

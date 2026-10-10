@@ -1,5 +1,4 @@
-import { CrisisTrackerPage } from "@/components/crisis/CrisisTrackerPage";
-
+import { redirect } from "next/navigation";
 export default function HomePage() {
-  return <CrisisTrackerPage />;
+  redirect("/mechanics");
 }

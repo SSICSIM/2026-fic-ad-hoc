@@ -2,3 +2,7 @@
 
 # Linting and formatting
 ruff==0.8.6
+
+# API and database regression checks
+pytest==9.1.1
+httpx==0.28.1

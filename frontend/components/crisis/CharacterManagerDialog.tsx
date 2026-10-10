@@ -136,8 +136,8 @@ export function CharacterManagerDialog({ open, onOpenChange }: Props) {
           <AlertDialogHeader>
             <AlertDialogTitle>Remove "{deleteTarget?.name}"?</AlertDialogTitle>
             <AlertDialogDescription>
-              This permanently deletes the character and every crisis note ever written about
-              them — including notes in archived periods. This cannot be undone.
+              Only unused characters can be removed. Characters with crisis notes,
+              a roster, or movement history are kept so those records remain intact.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

@@ -5,18 +5,37 @@
 // the client bundle and the site password actually gates the data API too.
 const baseUrl = "/api/backend";
 
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${baseUrl}${path}`, {
     ...init,
     headers: {
       "content-type": "application/json",
-      ...(init?.headers || {})
-    }
+      ...(init?.headers || {}),
+    },
   });
 
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Request failed (${res.status}): ${text}`);
+    const body = await res.json().catch(() => null);
+    const detail =
+      typeof body?.detail === "string"
+        ? body.detail
+        : "Please check your entries and try again.";
+    throw new ApiError(
+      res.status,
+      res.status === 401
+        ? "Your session expired. Sign in again to continue."
+        : detail,
+    );
   }
 
   if (res.status === 204 || res.headers.get("content-length") === "0") {
@@ -31,5 +50,5 @@ export const apiClient = {
     request<T>(path, { method: "POST", body: JSON.stringify(body) }),
   patch: <T>(path: string, body: unknown) =>
     request<T>(path, { method: "PATCH", body: JSON.stringify(body) }),
-  delete: <T>(path: string) => request<T>(path, { method: "DELETE" })
+  delete: <T>(path: string) => request<T>(path, { method: "DELETE" }),
 };
