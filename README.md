@@ -79,3 +79,10 @@ locks as well, set `TEST_DATABASE_URL` to a disposable Postgres database. Tests
 create and remove an isolated schema per case; the test user needs schema-creation
 permission. The Postgres-only check submits two simultaneous staff edits and
 verifies only one can commit.
+
+## Deploying
+
+Production runs on Vercel (frontend, `https://fic-ad-hoc.ssicsim.ca`), a free Render
+service (backend) and the admin portal's Supabase (schema `fic_ad_hoc`). See
+[docs/deployment.md](docs/deployment.md) for setup and
+[docs/conference-keepalive.md](docs/conference-keepalive.md) for the conference weekend.
