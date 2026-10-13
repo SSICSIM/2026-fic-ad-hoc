@@ -27,8 +27,11 @@ const nunito = localFont({
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  title: "Fearmonger Union | Summit Register",
+  // Tab title is the committee name; pages with their own title show as
+  // "<page> | <committee>".
+  title: { default: "Fictional Ad Hoc", template: "%s | Fictional Ad Hoc" },
   description: "The Fearmonger Summit staff roster and crisis workspace.",
+  icons: { icon: "/favicon.png", apple: "/favicon-apple.png" },
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {
