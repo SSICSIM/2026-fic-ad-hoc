@@ -26,6 +26,7 @@ const nunito = localFont({
 });
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: false },
   title: "Fearmonger Union | Summit Register",
   description: "The Fearmonger Summit staff roster and crisis workspace.",
 };
