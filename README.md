@@ -1,4 +1,4 @@
-# Fearmonger Union — Summit Register
+# Crisis Tracker — Summit Register
 
 A lightweight, staff-only roster manager for the Fictional AdHoc committee, with
 an existing crisis-note tracker alongside it. The register starts empty: enter
