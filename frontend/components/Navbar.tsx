@@ -17,7 +17,7 @@ export function Navbar() {
           <Link href="/mechanics" className="union-brand">
             <BookOpen size={19} strokeWidth={1.6} />
             <span>
-              Fearmonger <strong>Union</strong>
+              Crisis <strong>Tracker</strong>
             </span>
           </Link>
           <nav aria-label="Main navigation">
